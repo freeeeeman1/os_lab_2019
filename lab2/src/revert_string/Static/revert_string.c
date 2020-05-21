@@ -1,4 +1,5 @@
 #include "revert_string.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -11,5 +12,5 @@ void RevertString(char *str)
     {
     NewStr[len-i-1]= str[i]; 
     }
-    strcpy(str,NewStr);
+    strcpy(str,NewStr);    
 }

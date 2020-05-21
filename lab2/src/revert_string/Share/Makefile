@@ -1,0 +1,15 @@
+# Makefile 
+
+binary: main.o librevert.so
+	gcc -o binary main.o -L. -lrevert -Wl,-rpath,. 
+main.o: main.c
+	gcc -c main.c
+
+librevert.so: revert_string.o
+	gcc -shared -o librevert.so revert_string.o
+
+revert_string.o: revert_string.c
+	gcc -c -fPIC revert_string.c
+
+clean:
+	rm -f *.o *.so binary
