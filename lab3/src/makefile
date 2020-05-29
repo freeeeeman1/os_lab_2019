@@ -1,5 +1,22 @@
 CC=gcc
 CFLAGS=-I.
+CFLAGS1=--seed 1 --array_size 10 --pnum 3 --by_files
+CFLAGS1_1=--seed 1 --array_size 10 --pnum 3 
+CFLAGS2=1 10
+
+# Цель all вызывает запуск целей Compile_P и Compile_s
+all : Compile_P Compile_s Compile_P2
+
+# Данная цель запускает скомпилированный скрипт sequential_min_max с параметрами 
+# --seed 1 --array_size 10 --pnum 3 --by_files
+Compile_s : sequential_min_max
+	./sequential_min_max $(CFLAGS2)
+
+Compile_P : parallel_min_max
+	./parallel_min_max $(CFLAGS1)
+
+Compile_P2 : parallel_min_max
+	./parallel_min_max $(CFLAGS1_1)
 
 sequential_min_max : utils.o find_min_max.o utils.h find_min_max.h
 	$(CC) -o sequential_min_max find_min_max.o utils.o sequential_min_max.c $(CFLAGS)
@@ -14,4 +31,4 @@ find_min_max.o : utils.h find_min_max.h
 	$(CC) -o find_min_max.o -c find_min_max.c $(CFLAGS)
 
 clean :
-	rm utils.o find_min_max.o sequential_min_max parallel_min_max
+	rm *.o sequential_min_max parallel_min_max
